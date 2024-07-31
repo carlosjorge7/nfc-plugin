@@ -1,5 +1,4 @@
 import { registerPlugin } from '@capacitor/core';
-
 import type { NFCPluginPlugin } from './definitions';
 
 const NFCPlugin = registerPlugin<NFCPluginPlugin>('NFCPlugin', {

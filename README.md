@@ -13,24 +13,34 @@ npx cap sync
 
 <docgen-index>
 
-* [`echo(...)`](#echo)
+* [`readTag()`](#readtag)
+* [`writeTag(...)`](#writetag)
 
 </docgen-index>
 
 <docgen-api>
 <!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
 
-### echo(...)
+### readTag()
 
 ```typescript
-echo(options: { value: string; }) => Promise<{ value: string; }>
+readTag() => Promise<{ message: string; }>
 ```
 
-| Param         | Type                            |
-| ------------- | ------------------------------- |
-| **`options`** | <code>{ value: string; }</code> |
+**Returns:** <code>Promise&lt;{ message: string; }&gt;</code>
 
-**Returns:** <code>Promise&lt;{ value: string; }&gt;</code>
+--------------------
+
+
+### writeTag(...)
+
+```typescript
+writeTag(options: { message: string; }) => Promise<void>
+```
+
+| Param         | Type                              |
+| ------------- | --------------------------------- |
+| **`options`** | <code>{ message: string; }</code> |
 
 --------------------
 

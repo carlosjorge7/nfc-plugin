@@ -1,3 +1,4 @@
 export interface NFCPluginPlugin {
-  echo(options: { value: string }): Promise<{ value: string }>;
+  readTag(): Promise<{ message: string }>;
+  writeTag(options: { message: string }): Promise<void>;
 }
