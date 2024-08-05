@@ -36,19 +36,23 @@ public class NFCPluginPlugin extends Plugin {
     @PluginMethod
     public void readTag(PluginCall call) {
         if (nfcTag == null) {
+            Log.e(TAG, "No NFC tag found");
             call.reject("No NFC tag found");
             return;
         }
 
         Ndef ndef = Ndef.get(nfcTag);
         if (ndef == null) {
+            Log.e(TAG, "NFC tag is not NDEF formatted");
             call.reject("NFC tag is not NDEF formatted");
             return;
         }
 
         try {
             ndef.connect();
+            Log.d(TAG, "Connected to NFC tag");
             NdefMessage ndefMessage = ndef.getNdefMessage();
+            Log.d(TAG, "NDEF message read");
             NdefRecord[] records = ndefMessage.getRecords();
             StringBuilder result = new StringBuilder();
             for (NdefRecord record : records) {
@@ -57,13 +61,15 @@ public class NFCPluginPlugin extends Plugin {
             JSObject ret = new JSObject();
             ret.put("message", result.toString());
             call.resolve(ret);
+            Log.d(TAG, "NFC tag reading successful");
         } catch (IOException | android.nfc.FormatException e) {
+            Log.e(TAG, "Error reading NFC tag", e);
             call.reject("Error reading NFC tag", e);
         } finally {
             try {
                 ndef.close();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.e(TAG, "Error closing NFC connection", e);
             }
         }
     }
@@ -110,9 +116,19 @@ public class NFCPluginPlugin extends Plugin {
         super.handleOnNewIntent(intent);
         nfcTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         if (nfcTag != null) {
-            Log.d(TAG, "NFC Tag detected: " + nfcTag.toString());
+            byte[] tagId = nfcTag.getId();
+            String tagIdString = bytesToHex(tagId);
+            Log.d(TAG, "NFC Tag detected: " + tagIdString);
         } else {
             Log.d(TAG, "No NFC Tag detected");
         }
+    }
+
+    private String bytesToHex(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        for (byte b : bytes) {
+            sb.append(String.format("%02X", b));
+        }
+        return sb.toString();
     }
 }
