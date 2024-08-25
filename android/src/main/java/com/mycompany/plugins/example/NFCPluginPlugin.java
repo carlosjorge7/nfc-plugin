@@ -112,13 +112,26 @@ public class NFCPluginPlugin extends Plugin {
     }
 
     @Override
-    protected void handleOnNewIntent(Intent intent) {
+    public void handleOnNewIntent(Intent intent) {
         super.handleOnNewIntent(intent);
+
+        // Actualiza el intent dentro de la actividad
+        Activity activity = getActivity();
+        if (activity != null) {
+            activity.setIntent(intent); // Actualiza el intent en la actividad
+        }
+
+        // Procesa el intent de NFC
         nfcTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         if (nfcTag != null) {
             byte[] tagId = nfcTag.getId();
             String tagIdString = bytesToHex(tagId);
             Log.d(TAG, "NFC Tag detected: " + tagIdString);
+
+            // Crear un JSObject con el ID del tag
+            JSObject ret = new JSObject();
+            ret.put("tagId", tagIdString);
+            notifyListeners("nfcTagDetected", ret); // Notifica a los listeners de la app
         } else {
             Log.d(TAG, "No NFC Tag detected");
         }
