@@ -81,9 +81,9 @@ public class NFCPluginPlugin extends Plugin {
             return;
         }
 
-        String message = call.getString("message");
-        if (message == null || message.isEmpty()) {
-            call.reject("No message provided");
+        String url = call.getString("url");
+        if (url == null || url.isEmpty()) {
+            call.reject("No url provided");
             return;
         }
 
@@ -93,10 +93,11 @@ public class NFCPluginPlugin extends Plugin {
             return;
         }
 
-        NdefRecord record = NdefRecord.createTextRecord("en", message);
-        NdefMessage ndefMessage = new NdefMessage(new NdefRecord[] { record });
-
         try {
+            // Crear un NdefRecord con el tipo URI
+            NdefRecord uriRecord = NdefRecord.createUri(url);
+            NdefMessage ndefMessage = new NdefMessage(new NdefRecord[] { uriRecord });
+
             ndef.connect();
             ndef.writeNdefMessage(ndefMessage);
             call.resolve();
