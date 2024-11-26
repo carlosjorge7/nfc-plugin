@@ -37,12 +37,12 @@ readTag() => Promise<{ message: string; }>
 ### writeTag(...)
 
 ```typescript
-writeTag(options: { message: string; }) => Promise<void>
+writeTag(options: { url: string; }) => Promise<void>
 ```
 
-| Param         | Type                              |
-| ------------- | --------------------------------- |
-| **`options`** | <code>{ message: string; }</code> |
+| Param         | Type                          |
+| ------------- | ----------------------------- |
+| **`options`** | <code>{ url: string; }</code> |
 
 --------------------
 

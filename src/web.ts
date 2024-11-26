@@ -1,4 +1,4 @@
-import { WebPlugin } from '@capacitor/core';
+import { PluginListenerHandle, WebPlugin } from '@capacitor/core';
 import type { NFCPluginPlugin } from './definitions';
 
 export class NFCPluginWeb extends WebPlugin implements NFCPluginPlugin {
@@ -7,8 +7,8 @@ export class NFCPluginWeb extends WebPlugin implements NFCPluginPlugin {
     return { message: 'Not implemented' };
   }
 
-  async writeTag(options: { message: string }): Promise<void> {
+  async writeTag(options: { url: string }): Promise<void> {
     console.log('Write Tag method is not implemented in the Web version');
-    console.log('Message:', options.message);
+    console.log('Message:', options.url);
   }
 }
