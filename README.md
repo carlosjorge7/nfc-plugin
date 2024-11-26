@@ -15,6 +15,8 @@ npx cap sync
 
 * [`readTag()`](#readtag)
 * [`writeTag(...)`](#writetag)
+* [`addListener(string, ...)`](#addlistenerstring-)
+* [Interfaces](#interfaces)
 
 </docgen-index>
 
@@ -43,5 +45,31 @@ writeTag(options: { message: string; }) => Promise<void>
 | **`options`** | <code>{ message: string; }</code> |
 
 --------------------
+
+
+### addListener(string, ...)
+
+```typescript
+addListener(eventName: string, listenerFunc: (info: any) => void) => PluginListenerHandle
+```
+
+| Param              | Type                                |
+| ------------------ | ----------------------------------- |
+| **`eventName`**    | <code>string</code>                 |
+| **`listenerFunc`** | <code>(info: any) =&gt; void</code> |
+
+**Returns:** <code><a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
+
+--------------------
+
+
+### Interfaces
+
+
+#### PluginListenerHandle
+
+| Prop         | Type                                      |
+| ------------ | ----------------------------------------- |
+| **`remove`** | <code>() =&gt; Promise&lt;void&gt;</code> |
 
 </docgen-api>
