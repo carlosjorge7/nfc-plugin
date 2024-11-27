@@ -1,4 +1,4 @@
-import { PluginListenerHandle, WebPlugin } from '@capacitor/core';
+import { WebPlugin } from '@capacitor/core';
 import type { NFCPluginPlugin } from './definitions';
 
 export class NFCPluginWeb extends WebPlugin implements NFCPluginPlugin {
